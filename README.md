@@ -66,24 +66,6 @@ cd backend
 npm install
 ```
 
-Create `.env` file in backend directory:
-```env
-PORT=5000
-MONGODB_URI=mongodb+srv://reksitrajan01:8n4SHiaJfCZRrimg@cluster0.mperr.mongodb.net/flightbooking
-JWT_SECRET=your_jwt_secret_key_here
-JWT_EXPIRES_IN=7d
-
-# Email Configuration
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USER=reksit2005@gmail.com
-EMAIL_PASS=your_gmail_app_password
-EMAIL_FROM=reksit2005@gmail.com
-
-# Frontend URL
-FRONTEND_URL=http://localhost:3000
-```
-
 ### 3. Frontend Setup
 ```bash
 cd ../frontend
