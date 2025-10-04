@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { FiArrowRight, FiNavigation, FiStar, FiTv, FiUsers, FiWifi } from 'react-icons/fi';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCurrency } from '../context/CurrencyContext';
 import { flightsAPI } from '../utils/api';
 
 const FlightDetails = () => {
@@ -10,6 +11,7 @@ const FlightDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated } = useAuth();
+  const { formatPrice } = useCurrency();
   
   const [flight, setFlight] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -272,7 +274,7 @@ const FlightDetails = () => {
                 <div className="text-center">
                   <h3 className="font-semibold text-secondary-900 dark:text-white mb-2">Economy</h3>
                   <div className="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-2">
-                    ${getClassPrice('economy')}
+                    {formatPrice(getClassPrice('economy'))}
                   </div>
                   <div className="text-sm text-secondary-600 dark:text-secondary-300 mb-3">
                     {getAvailableSeats('economy')} seats available
@@ -299,7 +301,7 @@ const FlightDetails = () => {
                   <div className="text-center">
                     <h3 className="font-semibold text-secondary-900 dark:text-white mb-2">Business</h3>
                     <div className="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-2">
-                      ${getClassPrice('business')}
+                      {formatPrice(getClassPrice('business'))}
                     </div>
                     <div className="text-sm text-secondary-600 dark:text-secondary-300 mb-3">
                       {getAvailableSeats('business')} seats available
@@ -327,7 +329,7 @@ const FlightDetails = () => {
                   <div className="text-center">
                     <h3 className="font-semibold text-secondary-900 dark:text-white mb-2">First Class</h3>
                     <div className="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-2">
-                      ${getClassPrice('first')}
+                      {formatPrice(getClassPrice('first'))}
                     </div>
                     <div className="text-sm text-secondary-600 dark:text-secondary-300 mb-3">
                       {getAvailableSeats('first')} seats available
@@ -390,7 +392,7 @@ const FlightDetails = () => {
               <div className="flex justify-between items-center">
                 <span className="text-secondary-600 dark:text-secondary-400">Price per person:</span>
                 <span className="text-xl font-bold text-primary-600 dark:text-primary-400">
-                  ${getClassPrice(selectedClass)}
+                  {formatPrice(getClassPrice(selectedClass))}
                 </span>
               </div>
               
@@ -400,7 +402,7 @@ const FlightDetails = () => {
                     Total ({searchCriteria.passengers} passengers):
                   </span>
                   <span className="text-xl font-bold text-primary-600 dark:text-primary-400">
-                    ${getClassPrice(selectedClass) * searchCriteria.passengers}
+                    {formatPrice(getClassPrice(selectedClass) * searchCriteria.passengers)}
                   </span>
                 </div>
               )}

@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { FiLogOut, FiMenu, FiMoon, FiNavigation, FiSettings, FiSun, FiX } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import CountrySelector from './CountrySelector';
 
 const Navbar = () => {
   const { user, logout, isAuthenticated, isAdmin } = useAuth();
@@ -11,6 +12,42 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  // Handle body scroll prevention when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      // Save current scroll position
+      const currentScrollY = window.scrollY;
+      setScrollPosition(currentScrollY);
+      
+      // Prevent body scroll
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${currentScrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Restore body scroll
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      
+      // Restore scroll position
+      window.scrollTo(0, scrollPosition);
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen, scrollPosition]);
 
   const handleLogout = () => {
     logout();
@@ -26,6 +63,10 @@ const Navbar = () => {
 
   const toggleProfileMenu = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
   return (
@@ -90,6 +131,9 @@ const Navbar = () => {
               )}
             </button>
 
+            {/* Country Selector */}
+            <CountrySelector isInNavbar={true} />
+
             {!isAuthenticated() ? (
               <div className="flex items-center space-x-3 md:space-x-3 lg:space-x-3 ml-3 md:ml-4 lg:ml-4">
                 <Link to="/login" className="btn-ghost px-5 py-2.5 font-semibold">
@@ -151,6 +195,11 @@ const Navbar = () => {
               {isDark ? <FiSun className="h-5 w-5 sm:h-6 sm:w-6" /> : <FiMoon className="h-5 w-5 sm:h-6 sm:w-6" />}
             </button>
             
+            {/* Mobile Country Selector */}
+            <div className="sm:hidden">
+              <CountrySelector isInNavbar={true} />
+            </div>
+            
             <button
               onClick={toggleMenu}
               className="p-2 sm:p-2.5 text-secondary-600 dark:text-secondary-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gradient-to-r hover:from-secondary-100/80 hover:to-secondary-50/80 dark:hover:from-secondary-800/80 dark:hover:to-secondary-700/80 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 hover:scale-110"
@@ -170,7 +219,9 @@ const Navbar = () => {
               top: 0,
               left: 0,
               right: 0,
-              bottom: 0
+              bottom: 0,
+              height: '100vh',
+              width: '100vw'
             }}
           >
             {/* Enhanced Backdrop */}
@@ -182,9 +233,11 @@ const Navbar = () => {
                 top: 0,
                 left: 0,
                 right: 0,
-                bottom: 0
+                bottom: 0,
+                height: '100vh',
+                width: '100vw'
               }}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={closeMenu}
             />
             
             {/* Enhanced Professional Sidebar */}
@@ -196,7 +249,10 @@ const Navbar = () => {
                 top: 0,
                 left: 0,
                 height: '100vh',
-                maxHeight: '100vh'
+                maxHeight: '100vh',
+                overflowY: 'auto',
+                width: '320px',
+                maxWidth: '90vw'
               }}
             >
               {/* Enhanced Header */}
@@ -211,7 +267,7 @@ const Navbar = () => {
                   </div>
                 </div>
                 <button
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={closeMenu}
                   className="p-2.5 text-secondary-500 hover:text-secondary-700 dark:hover:text-secondary-300 rounded-xl hover:bg-secondary-100/80 dark:hover:bg-secondary-800/80 transition-all duration-300 hover:scale-110"
                 >
                   <FiX className="h-6 w-6" />
@@ -240,7 +296,7 @@ const Navbar = () => {
                   <Link 
                     to="/" 
                     className="flex items-center px-4 py-4 text-secondary-700 dark:text-secondary-200 hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/20 dark:hover:to-primary-800/20 hover:text-primary-700 dark:hover:text-primary-300 rounded-xl font-semibold transition-all duration-300 group"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={closeMenu}
                   >
                     <span className="mr-4 text-xl group-hover:scale-110 transition-transform duration-300">🏠</span>
                     <span className="font-display">Home</span>
@@ -249,28 +305,39 @@ const Navbar = () => {
                   <Link 
                     to="/flights/search" 
                     className="flex items-center px-4 py-4 text-secondary-700 dark:text-secondary-200 hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/20 dark:hover:to-primary-800/20 hover:text-primary-700 dark:hover:text-primary-300 rounded-xl font-semibold transition-all duration-300 group"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={closeMenu}
                   >
                     <span className="mr-4 text-xl group-hover:scale-110 transition-transform duration-300">✈️</span>
                     <span className="font-display">Search Flights</span>
                   </Link>
                   
                   {isAuthenticated() && (
-                    <Link 
-                      to="/my-bookings" 
-                      className="flex items-center px-4 py-4 text-secondary-700 dark:text-secondary-200 hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/20 dark:hover:to-primary-800/20 hover:text-primary-700 dark:hover:text-primary-300 rounded-xl font-semibold transition-all duration-300 group"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <span className="mr-4 text-xl group-hover:scale-110 transition-transform duration-300">📋</span>
-                      <span className="font-display">My Bookings</span>
-                    </Link>
+                    <>
+                      <Link 
+                        to="/my-bookings" 
+                        className="flex items-center px-4 py-4 text-secondary-700 dark:text-secondary-200 hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/20 dark:hover:to-primary-800/20 hover:text-primary-700 dark:hover:text-primary-300 rounded-xl font-semibold transition-all duration-300 group"
+                        onClick={closeMenu}
+                      >
+                        <span className="mr-4 text-xl group-hover:scale-110 transition-transform duration-300">📋</span>
+                        <span className="font-display">My Bookings</span>
+                      </Link>
+
+                      <Link 
+                        to="/profile" 
+                        className="flex items-center px-4 py-4 text-secondary-700 dark:text-secondary-200 hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/20 dark:hover:to-primary-800/20 hover:text-primary-700 dark:hover:text-primary-300 rounded-xl font-semibold transition-all duration-300 group"
+                        onClick={closeMenu}
+                      >
+                        <FiSettings className="mr-4 h-5 w-5 group-hover:rotate-45 transition-transform duration-300" />
+                        <span className="font-display">Profile Settings</span>
+                      </Link>
+                    </>
                   )}
 
                   {isAdmin() && (
                     <Link 
                       to="/admin" 
                       className="flex items-center px-4 py-4 text-accent-700 dark:text-accent-300 hover:bg-gradient-to-r hover:from-accent-50 hover:to-accent-100 dark:hover:from-accent-900/20 dark:hover:to-accent-800/20 hover:text-accent-800 dark:hover:text-accent-200 rounded-xl font-semibold transition-all duration-300 group"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={closeMenu}
                     >
                       <span className="mr-4 text-xl group-hover:scale-110 transition-transform duration-300">⚙️</span>
                       <span className="font-display">Admin Panel</span>
@@ -285,14 +352,14 @@ const Navbar = () => {
                       <Link 
                         to="/login" 
                         className="btn-secondary w-full justify-center py-3 font-semibold"
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={closeMenu}
                       >
                         Sign In
                       </Link>
                       <Link 
                         to="/register" 
                         className="btn-primary w-full justify-center py-3 font-semibold"
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={closeMenu}
                       >
                         Sign Up
                       </Link>
@@ -301,7 +368,7 @@ const Navbar = () => {
                     <button
                       onClick={() => {
                         handleLogout();
-                        setIsMenuOpen(false);
+                        closeMenu();
                       }}
                       className="flex items-center w-full px-4 py-3 text-error-600 dark:text-error-400 hover:bg-gradient-to-r hover:from-error-50 hover:to-error-100 dark:hover:from-error-900/20 dark:hover:to-error-800/20 rounded-xl font-semibold transition-all duration-300 group"
                     >

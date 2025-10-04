@@ -294,115 +294,119 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="profile-page min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-4 sm:py-8 px-3 sm:px-4 md:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">Profile Settings</h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Manage your account information and preferences with ease</p>
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-4 px-2">Profile Settings</h1>
+          <p className="text-base sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">Manage your account information and preferences with ease</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8 lg:gap-12">
           {/* Profile Overview Card */}
-          <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8 lg:p-10 text-center sticky top-8">
-              <div className="w-28 h-28 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
-                <FiUser className="w-14 h-14 text-white" />
+          <div className="lg:col-span-1 order-2 lg:order-1">
+            <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-8 lg:p-10 text-center lg:sticky lg:top-8">
+              <div className="w-20 h-20 sm:w-28 sm:h-28 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-8 shadow-lg">
+                <FiUser className="w-8 h-8 sm:w-14 sm:h-14 text-white" />
               </div>
-              <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3">
+              <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3">
                 {profileData.profile.firstName || profileData.username} {profileData.profile.lastName}
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-6 break-all">{profileData.email}</p>
-              <div className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-700">
-                <FiUserCheck className="w-4 h-4 mr-2" />
-                Verified Account
-              </div>
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 break-all px-2">{profileData.email}</p>
             </div>
           </div>
 
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-8 order-1 lg:order-2">
             {/* Personal Information */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8 lg:p-10">
-              <div className="flex items-center justify-between mb-10">
-                <div className="flex items-center space-x-4">
-                  <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
-                    <FiUser className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+            <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-8 lg:p-10">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-10 space-y-4 sm:space-y-0">
+                <div className="flex items-center space-x-3 sm:space-x-4">
+                  <div className="p-2 sm:p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
+                    <FiUser className="w-5 h-5 sm:w-7 sm:h-7 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">Personal Information</h3>
-                    <p className="text-gray-600 dark:text-gray-400 mt-1">Update your personal details and contact information</p>
+                    <h3 className="text-lg sm:text-2xl font-semibold text-gray-900 dark:text-white">Personal Information</h3>
+                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1">Update your personal details and contact information</p>
                   </div>
                 </div>
                 {!isEditing ? (
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors duration-200 flex items-center space-x-2 shadow-lg"
+                    className="w-full sm:w-auto px-4 sm:px-6 py-2.5 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors duration-200 flex items-center justify-center space-x-2 shadow-lg text-sm sm:text-base"
                   >
-                    <FiEdit2 className="w-5 h-5" />
+                    <FiEdit2 className="w-4 h-4 sm:w-5 sm:h-5" />
                     <span>Edit Profile</span>
                   </button>
                 ) : (
-                  <div className="flex space-x-3">
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
                     <button
                       onClick={cancelEdit}
-                      className="px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-medium transition-colors duration-200 flex items-center space-x-2"
+                      className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-medium transition-colors duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base"
                     >
-                      <FiX className="w-5 h-5" />
+                      <FiX className="w-4 h-4 sm:w-5 sm:h-5" />
                       <span>Cancel</span>
                     </button>
                     <button
                       onClick={handleSaveProfile}
                       disabled={isLoading}
-                      className="px-6 py-3 bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white rounded-xl font-medium transition-colors duration-200 flex items-center space-x-2 shadow-lg"
+                      className="px-4 sm:px-6 py-2.5 sm:py-3 bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white rounded-xl font-medium transition-colors duration-200 flex items-center justify-center space-x-2 shadow-lg text-sm sm:text-base"
                     >
-                      <FiSave className="w-5 h-5" />
+                      <FiSave className="w-4 h-4 sm:w-5 sm:h-5" />
                       <span>{isLoading ? 'Saving...' : 'Save Changes'}</span>
                     </button>
                   </div>
                 )}
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Verified Account Badge */}
+              <div className="mb-6 sm:mb-8 flex justify-center sm:justify-start">
+                <div className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-700">
+                  <FiUserCheck className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  Verified Account
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
                 {/* Username */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Username
                   </label>
                   <div className="relative">
-                    <FiUser className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
+                    <FiUser className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4 sm:w-5 sm:h-5" />
                     <input
                       type="text"
                       value={profileData.username}
                       onChange={(e) => handleInputChange('username', e.target.value)}
                       disabled={!isEditing}
                       placeholder="Enter your username"
-                      className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-lg"
+                      className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-lg"
                     />
                   </div>
                 </div>
 
                 {/* Email */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Email Address
                   </label>
                   <div className="relative">
-                    <FiMail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
+                    <FiMail className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4 sm:w-5 sm:h-5" />
                     <input
                       type="email"
                       value={profileData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
                       disabled={!isEditing}
                       placeholder="Enter your email address"
-                      className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-lg"
+                      className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-lg"
                     />
                   </div>
                 </div>
 
                 {/* First Name */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                     First Name
                   </label>
                   <input
@@ -411,13 +415,13 @@ const Profile = () => {
                     onChange={(e) => handleInputChange('profile.firstName', e.target.value)}
                     disabled={!isEditing}
                     placeholder="Enter your first name"
-                    className="w-full px-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-lg"
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-lg"
                   />
                 </div>
 
                 {/* Last Name */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Last Name
                   </label>
                   <input
@@ -426,41 +430,41 @@ const Profile = () => {
                     onChange={(e) => handleInputChange('profile.lastName', e.target.value)}
                     disabled={!isEditing}
                     placeholder="Enter your last name"
-                    className="w-full px-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-lg"
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-lg"
                   />
                 </div>
 
                 {/* Phone */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Phone Number
                   </label>
                   <div className="relative">
-                    <FiPhone className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
+                    <FiPhone className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4 sm:w-5 sm:h-5" />
                     <input
                       type="tel"
                       value={profileData.profile.phone}
                       onChange={(e) => handleInputChange('profile.phone', e.target.value)}
                       disabled={!isEditing}
                       placeholder="Enter your phone number"
-                      className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-lg"
+                      className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-lg"
                     />
                   </div>
                 </div>
 
                 {/* Date of Birth */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Date of Birth
                   </label>
                   <div className="relative">
-                    <FiCalendar className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
+                    <FiCalendar className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4 sm:w-5 sm:h-5" />
                     <input
                       type="date"
                       value={profileData.profile.dateOfBirth}
                       onChange={(e) => handleInputChange('profile.dateOfBirth', e.target.value)}
                       disabled={!isEditing}
-                      className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-lg [color-scheme:dark]"
+                      className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-lg [color-scheme:dark]"
                     />
                   </div>
                 </div>
@@ -468,21 +472,21 @@ const Profile = () => {
             </div>
 
             {/* Address Information */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8 lg:p-10">
-              <div className="flex items-center space-x-4 mb-10">
-                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
-                  <FiMapPin className="w-7 h-7 text-purple-600 dark:text-purple-400" />
+            <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-8 lg:p-10">
+              <div className="flex items-center space-x-3 sm:space-x-4 mb-6 sm:mb-10">
+                <div className="p-2 sm:p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
+                  <FiMapPin className="w-5 h-5 sm:w-7 sm:h-7 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">Address Information</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mt-1">Your residential address and location details</p>
+                  <h3 className="text-lg sm:text-2xl font-semibold text-gray-900 dark:text-white">Address Information</h3>
+                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1">Your residential address and location details</p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
                 {/* Street Address */}
-                <div className="md:col-span-2 space-y-3">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="sm:col-span-2 space-y-2 sm:space-y-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Street Address
                   </label>
                   <input
@@ -491,13 +495,13 @@ const Profile = () => {
                     onChange={(e) => handleInputChange('profile.address.street', e.target.value)}
                     disabled={!isEditing}
                     placeholder="Enter your complete street address"
-                    className="w-full px-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-lg"
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-lg"
                   />
                 </div>
 
                 {/* City */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                     City
                   </label>
                   <input
@@ -506,13 +510,13 @@ const Profile = () => {
                     onChange={(e) => handleInputChange('profile.address.city', e.target.value)}
                     disabled={!isEditing}
                     placeholder="Enter your city"
-                    className="w-full px-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-lg"
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-lg"
                   />
                 </div>
 
                 {/* State */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                     State/Province
                   </label>
                   <input
@@ -521,13 +525,13 @@ const Profile = () => {
                     onChange={(e) => handleInputChange('profile.address.state', e.target.value)}
                     disabled={!isEditing}
                     placeholder="Enter your state or province"
-                    className="w-full px-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-lg"
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-lg"
                   />
                 </div>
 
                 {/* Country */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Country
                   </label>
                   <input
@@ -536,13 +540,13 @@ const Profile = () => {
                     onChange={(e) => handleInputChange('profile.address.country', e.target.value)}
                     disabled={!isEditing}
                     placeholder="Enter your country"
-                    className="w-full px-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-lg"
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-lg"
                   />
                 </div>
 
                 {/* ZIP Code */}
-                <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                     ZIP/Postal Code
                   </label>
                   <input
@@ -551,39 +555,39 @@ const Profile = () => {
                     onChange={(e) => handleInputChange('profile.address.zipCode', e.target.value)}
                     disabled={!isEditing}
                     placeholder="Enter your ZIP or postal code"
-                    className="w-full px-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-lg"
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-lg"
                   />
                 </div>
               </div>
             </div>
 
             {/* Security Settings */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8 lg:p-10">
-              <div className="flex items-center justify-between mb-10">
-                <div className="flex items-center space-x-4">
-                  <div className="p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl">
-                    <FiLock className="w-7 h-7 text-yellow-600 dark:text-yellow-400" />
+            <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-8 lg:p-10">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-10 space-y-4 sm:space-y-0">
+                <div className="flex items-center space-x-3 sm:space-x-4">
+                  <div className="p-2 sm:p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl">
+                    <FiLock className="w-5 h-5 sm:w-7 sm:h-7 text-yellow-600 dark:text-yellow-400" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">Security Settings</h3>
-                    <p className="text-gray-600 dark:text-gray-400 mt-1">Manage your password and account security</p>
+                    <h3 className="text-lg sm:text-2xl font-semibold text-gray-900 dark:text-white">Security Settings</h3>
+                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1">Manage your password and account security</p>
                   </div>
                 </div>
                 <button
                   onClick={() => setIsChangingPassword(!isChangingPassword)}
-                  className="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white rounded-xl font-medium transition-colors duration-200 flex items-center space-x-2 shadow-lg"
+                  className="w-full sm:w-auto px-4 sm:px-6 py-2.5 sm:py-3 bg-yellow-600 hover:bg-yellow-700 text-white rounded-xl font-medium transition-colors duration-200 flex items-center justify-center space-x-2 shadow-lg text-sm sm:text-base"
                 >
-                  <FiLock className="w-5 h-5" />
+                  <FiLock className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span>{isChangingPassword ? 'Cancel' : 'Change Password'}</span>
                 </button>
               </div>
 
               {isChangingPassword && (
-                <div className="space-y-8">
-                  <div className="grid grid-cols-1 gap-8">
+                <div className="space-y-6 sm:space-y-8">
+                  <div className="grid grid-cols-1 gap-4 sm:gap-8">
                     {/* Current Password */}
-                    <div className="space-y-3">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    <div className="space-y-2 sm:space-y-3">
+                      <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                         Current Password
                       </label>
                       <input
@@ -591,13 +595,13 @@ const Profile = () => {
                         value={passwordData.currentPassword}
                         onChange={(e) => handlePasswordChange('currentPassword', e.target.value)}
                         placeholder="Enter your current password"
-                        className="w-full px-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 text-lg"
+                        className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 text-sm sm:text-lg"
                       />
                     </div>
 
                     {/* New Password */}
-                    <div className="space-y-3">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    <div className="space-y-2 sm:space-y-3">
+                      <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                         New Password
                       </label>
                       <input
@@ -605,13 +609,13 @@ const Profile = () => {
                         value={passwordData.newPassword}
                         onChange={(e) => handlePasswordChange('newPassword', e.target.value)}
                         placeholder="Enter your new password (minimum 6 characters)"
-                        className="w-full px-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 text-lg"
+                        className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 text-sm sm:text-lg"
                       />
                     </div>
 
                     {/* Confirm Password */}
-                    <div className="space-y-3">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    <div className="space-y-2 sm:space-y-3">
+                      <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
                         Confirm New Password
                       </label>
                       <input
@@ -619,25 +623,25 @@ const Profile = () => {
                         value={passwordData.confirmPassword}
                         onChange={(e) => handlePasswordChange('confirmPassword', e.target.value)}
                         placeholder="Confirm your new password"
-                        className="w-full px-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 text-lg"
+                        className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 text-sm sm:text-lg"
                       />
                     </div>
                   </div>
 
-                  <div className="flex justify-end space-x-4 pt-6">
+                  <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-4 pt-4 sm:pt-6">
                     <button
                       onClick={() => {
                         setIsChangingPassword(false);
                         setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
                       }}
-                      className="px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-medium transition-colors duration-200"
+                      className="w-full sm:w-auto px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-medium transition-colors duration-200 text-sm sm:text-base"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={handleChangePassword}
                       disabled={isLoading}
-                      className="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 disabled:bg-yellow-400 text-white rounded-xl font-medium transition-colors duration-200 shadow-lg"
+                      className="w-full sm:w-auto px-4 sm:px-6 py-2.5 sm:py-3 bg-yellow-600 hover:bg-yellow-700 disabled:bg-yellow-400 text-white rounded-xl font-medium transition-colors duration-200 shadow-lg text-sm sm:text-base"
                     >
                       {isLoading ? 'Updating...' : 'Update Password'}
                     </button>
@@ -647,28 +651,28 @@ const Profile = () => {
             </div>
 
             {/* Danger Zone */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border-2 border-red-200 dark:border-red-800 p-8 lg:p-10">
-              <div className="flex items-center space-x-4 mb-8">
-                <div className="p-3 bg-red-100 dark:bg-red-900/30 rounded-xl">
-                  <FiAlertTriangle className="w-7 h-7 text-red-600 dark:text-red-400" />
+            <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-xl border-2 border-red-200 dark:border-red-800 p-4 sm:p-8 lg:p-10">
+              <div className="flex items-center space-x-3 sm:space-x-4 mb-6 sm:mb-8">
+                <div className="p-2 sm:p-3 bg-red-100 dark:bg-red-900/30 rounded-xl">
+                  <FiAlertTriangle className="w-5 h-5 sm:w-7 sm:h-7 text-red-600 dark:text-red-400" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-semibold text-red-600 dark:text-red-400">Danger Zone</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mt-1">Irreversible and destructive actions</p>
+                  <h3 className="text-lg sm:text-2xl font-semibold text-red-600 dark:text-red-400">Danger Zone</h3>
+                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1">Irreversible and destructive actions</p>
                 </div>
               </div>
 
-              <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-8 border border-red-200 dark:border-red-800">
-                <h4 className="text-xl font-semibold text-red-600 dark:text-red-400 mb-4">Delete Account</h4>
-                <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+              <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 sm:p-8 border border-red-200 dark:border-red-800">
+                <h4 className="text-lg sm:text-xl font-semibold text-red-600 dark:text-red-400 mb-3 sm:mb-4">Delete Account</h4>
+                <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
                   Once you delete your account, there is no going back. This will permanently delete your account, 
                   all your bookings, personal information, and remove all data associated with your profile from our servers.
                 </p>
                 <button
                   onClick={() => setShowDeleteModal(true)}
-                  className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium transition-colors duration-200 flex items-center space-x-2 shadow-lg"
+                  className="w-full sm:w-auto px-4 sm:px-6 py-2.5 sm:py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium transition-colors duration-200 flex items-center justify-center space-x-2 shadow-lg text-sm sm:text-base"
                 >
-                  <FiTrash2 className="w-5 h-5" />
+                  <FiTrash2 className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span>Delete My Account</span>
                 </button>
               </div>

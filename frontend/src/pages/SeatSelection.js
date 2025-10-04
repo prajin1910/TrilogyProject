@@ -4,6 +4,7 @@ import { FiArrowLeft, FiArrowRight, FiClock, FiMapPin, FiNavigation, FiUser } fr
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import FlightPathMap from '../components/FlightPathMap';
 import { useAuth } from '../context/AuthContext';
+import { useCurrency } from '../context/CurrencyContext';
 import { bookingsAPI, flightsAPI } from '../utils/api';
 
 const SeatSelection = () => {
@@ -11,6 +12,7 @@ const SeatSelection = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
+  const { formatPrice } = useCurrency();
   
   const [flight, setFlight] = useState(null);
   const [seatMap, setSeatMap] = useState(null);
@@ -111,71 +113,71 @@ const SeatSelection = () => {
     const flightDuration = flight.duration;
     
     // Generate smart recommendations based on route and time
-    let recommendation = `🛫 **AI Flight Analysis for ${departureCity} to ${arrivalCity}**\n\n`;
+    let recommendation = `🛫 AI Flight Analysis for ${departureCity} to ${arrivalCity}\n\n`;
     
     // Route-specific recommendations
     if (departureCountry === 'UAE' && arrivalCountry === 'USA') {
-      recommendation += `🏙️ **Scenic Route Analysis:**\n`;
-      recommendation += `• **Left Side Seats (A, B):** Perfect for viewing Dubai's iconic skyline including Burj Khalifa, Palm Jumeirah, and Dubai Marina during takeoff\n`;
-      recommendation += `• **Right Side Seats (E, F):** Excellent views of the Arabian Gulf and desert landscapes\n\n`;
+      recommendation += `🏙️ Scenic Route Analysis:\n`;
+      recommendation += `• Left Side Seats (A, B): Perfect for viewing Dubai's iconic skyline including Burj Khalifa, Palm Jumeirah, and Dubai Marina during takeoff\n`;
+      recommendation += `• Right Side Seats (E, F): Excellent views of the Arabian Gulf and desert landscapes\n\n`;
     } else if (departureCountry === 'USA' && arrivalCountry === 'UAE') {
-      recommendation += `🏜️ **Scenic Route Analysis:**\n`;
-      recommendation += `• **Right Side Seats (E, F):** Spectacular views of Dubai's futuristic skyline during approach, including Burj Al Arab and The World Islands\n`;
-      recommendation += `• **Left Side Seats (A, B):** Great views of the Persian Gulf and coastal developments\n\n`;
+      recommendation += `🏜️ Scenic Route Analysis:\n`;
+      recommendation += `• Right Side Seats (E, F): Spectacular views of Dubai's futuristic skyline during approach, including Burj Al Arab and The World Islands\n`;
+      recommendation += `• Left Side Seats (A, B): Great views of the Persian Gulf and coastal developments\n\n`;
     } else if (departureCity.toLowerCase().includes('new york') || arrivalCity.toLowerCase().includes('new york')) {
-      recommendation += `🗽 **NYC Route Analysis:**\n`;
-      recommendation += `• **Right Side Seats (E, F):** Amazing views of Manhattan skyline, Statue of Liberty, and Central Park\n`;
-      recommendation += `• **Left Side Seats (A, B):** Great views of Brooklyn Bridge and East River\n\n`;
+      recommendation += `🗽 NYC Route Analysis:\n`;
+      recommendation += `• Right Side Seats (E, F): Amazing views of Manhattan skyline, Statue of Liberty, and Central Park\n`;
+      recommendation += `• Left Side Seats (A, B): Great views of Brooklyn Bridge and East River\n\n`;
     } else {
-      recommendation += `🌍 **General Route Analysis:**\n`;
-      recommendation += `• **Window Seats (A, F):** Best for scenic views and photography\n`;
-      recommendation += `• **Aisle Seats (C, D):** Easy access for movement during flight\n\n`;
+      recommendation += `🌍 General Route Analysis:\n`;
+      recommendation += `• Window Seats (A, F): Best for scenic views and photography\n`;
+      recommendation += `• Aisle Seats (C, D): Easy access for movement during flight\n\n`;
     }
     
     // Time-based recommendations
     const hour = departureTime.getHours();
     if (hour >= 6 && hour <= 18) {
-      recommendation += `☀️ **Daytime Flight Benefits:**\n`;
-      recommendation += `• **Left Side:** Morning sun exposure, warmer and brighter cabin experience\n`;
-      recommendation += `• **Right Side:** Shade side, cooler and more comfortable for sensitive passengers\n`;
-      recommendation += `• **Window Seats:** Perfect for aerial photography and sightseeing\n\n`;
+      recommendation += `☀️ Daytime Flight Benefits:\n`;
+      recommendation += `• Left Side: Morning sun exposure, warmer and brighter cabin experience\n`;
+      recommendation += `• Right Side: Shade side, cooler and more comfortable for sensitive passengers\n`;
+      recommendation += `• Window Seats: Perfect for aerial photography and sightseeing\n\n`;
     } else {
-      recommendation += `🌙 **Night Flight Benefits:**\n`;
-      recommendation += `• **Window Seats:** Stunning city lights and stargazing opportunities\n`;
-      recommendation += `• **Any Side:** Equal comfort as sun position is not a factor\n`;
-      recommendation += `• **Consider:** Seats away from galley and restrooms for better sleep\n\n`;
+      recommendation += `🌙 Night Flight Benefits:\n`;
+      recommendation += `• Window Seats: Stunning city lights and stargazing opportunities\n`;
+      recommendation += `• Any Side: Equal comfort as sun position is not a factor\n`;
+      recommendation += `• Consider: Seats away from galley and restrooms for better sleep\n\n`;
     }
     
     // Duration-based recommendations
     const durationHours = typeof flightDuration === 'object' ? flightDuration.hours : Math.floor(flightDuration / 60);
     if (durationHours >= 8) {
-      recommendation += `✈️ **Long-Haul Flight Tips:**\n`;
-      recommendation += `• **Aisle Seats:** Better for stretching and bathroom access\n`;
-      recommendation += `• **Front Sections:** Quieter, faster boarding/deplaning\n`;
-      recommendation += `• **Away from Galley:** Reduced noise and foot traffic\n\n`;
+      recommendation += `✈️ Long-Haul Flight Tips:\n`;
+      recommendation += `• Aisle Seats: Better for stretching and bathroom access\n`;
+      recommendation += `• Front Sections: Quieter, faster boarding/deplaning\n`;
+      recommendation += `• Away from Galley: Reduced noise and foot traffic\n\n`;
     } else if (durationHours >= 4) {
-      recommendation += `🕐 **Medium-Haul Flight Tips:**\n`;
-      recommendation += `• **Window Seats:** Great for views and rest\n`;
-      recommendation += `• **Emergency Exit Rows:** Extra legroom if available\n\n`;
+      recommendation += `🕐 Medium-Haul Flight Tips:\n`;
+      recommendation += `• Window Seats: Great for views and rest\n`;
+      recommendation += `• Emergency Exit Rows: Extra legroom if available\n\n`;
     } else {
-      recommendation += `⚡ **Short Flight Tips:**\n`;
-      recommendation += `• **Any Seat:** Comfort differences minimal\n`;
-      recommendation += `• **Window Seats:** Maximize your brief scenic experience\n\n`;
+      recommendation += `⚡ Short Flight Tips:\n`;
+      recommendation += `• Any Seat: Comfort differences minimal\n`;
+      recommendation += `• Window Seats: Maximize your brief scenic experience\n\n`;
     }
     
     // Class-specific recommendations
-    recommendation += `🎯 **Class-Specific Recommendations:**\n`;
-    recommendation += `• **First Class:** Any seat offers premium experience, choose based on personal preference\n`;
-    recommendation += `• **Business Class:** Forward cabin for priority service and quieter environment\n`;
-    recommendation += `• **Economy Class:** Consider seat pitch, proximity to amenities, and personal preferences\n\n`;
+    recommendation += `🎯 Class-Specific Recommendations:\n`;
+    recommendation += `• First Class: Any seat offers premium experience, choose based on personal preference\n`;
+    recommendation += `• Business Class: Forward cabin for priority service and quieter environment\n`;
+    recommendation += `• Economy Class: Consider seat pitch, proximity to amenities, and personal preferences\n\n`;
     
     // Final personalized advice
-    recommendation += `💡 **Smart Booking Tip:**\n`;
-    recommendation += `Based on your ${departureCity} to ${arrivalCity} route, I recommend **window seats on the ${
+    recommendation += `💡 Smart Booking Tip:\n`;
+    recommendation += `Based on your ${departureCity} to ${arrivalCity} route, I recommend window seats on the ${
       (departureCountry === 'UAE' && arrivalCountry === 'USA') ? 'left side (A, B)' :
       (departureCountry === 'USA' && arrivalCountry === 'UAE') ? 'right side (E, F)' :
       'side that interests you most'
-    }** for the best overall experience combining scenic views and comfort.`;
+    } for the best overall experience combining scenic views and comfort.`;
     
     setAiRecommendation(recommendation);
     setIsGeneratingAI(false);
@@ -422,23 +424,23 @@ const SeatSelection = () => {
     return (
       <div className="card overflow-hidden">
         {/* Airplane Structure Container */}
-        <div className="relative bg-gradient-to-b from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mx-4">
+        <div className="relative bg-gradient-to-b from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 mx-2 sm:mx-4">
           
           {/* Airplane Nose/Cockpit */}
-          <div className="text-center mb-8">
-            <div className="relative mx-auto w-48 h-16">
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="relative mx-auto w-32 sm:w-40 lg:w-48 h-12 sm:h-14 lg:h-16">
               {/* Nose cone */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-gradient-to-b from-slate-300 to-slate-400 dark:from-slate-700 dark:to-slate-800 rounded-t-full border-2 border-slate-400 dark:border-slate-600"></div>
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 sm:w-14 lg:w-16 h-12 sm:h-14 lg:h-16 bg-gradient-to-b from-slate-300 to-slate-400 dark:from-slate-700 dark:to-slate-800 rounded-t-full border-2 border-slate-400 dark:border-slate-600"></div>
               
               {/* Cockpit windows */}
-              <div className="absolute top-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
-                <div className="w-3 h-4 bg-blue-200 dark:bg-blue-800 rounded-t-full border border-slate-400 dark:border-slate-600"></div>
-                <div className="w-3 h-4 bg-blue-200 dark:bg-blue-800 rounded-t-full border border-slate-400 dark:border-slate-600"></div>
+              <div className="absolute top-1 sm:top-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
+                <div className="w-2 sm:w-3 h-3 sm:h-4 bg-blue-200 dark:bg-blue-800 rounded-t-full border border-slate-400 dark:border-slate-600"></div>
+                <div className="w-2 sm:w-3 h-3 sm:h-4 bg-blue-200 dark:bg-blue-800 rounded-t-full border border-slate-400 dark:border-slate-600"></div>
               </div>
               
               {/* Cockpit label */}
-              <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-secondary-800 dark:bg-secondary-900 text-white py-1 px-4 rounded-full text-sm font-semibold">
-                <FiNavigation className="inline mr-2 w-4 h-4" />
+              <div className="absolute -bottom-4 sm:-bottom-6 left-1/2 transform -translate-x-1/2 bg-secondary-800 dark:bg-secondary-900 text-white py-1 px-2 sm:px-4 rounded-full text-xs sm:text-sm font-semibold">
+                <FiNavigation className="inline mr-1 sm:mr-2 w-3 h-3 sm:w-4 sm:h-4" />
                 Cockpit
               </div>
             </div>
@@ -446,16 +448,6 @@ const SeatSelection = () => {
 
           {/* Aircraft Fuselage with Wings */}
           <div className="relative">
-            {/* Left Wing */}
-            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-16 w-32 h-4 bg-gradient-to-r from-slate-400 to-slate-300 dark:from-slate-700 dark:to-slate-600 rounded-l-full border border-slate-500 dark:border-slate-600 shadow-lg">
-              <div className="absolute right-2 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-            </div>
-            
-            {/* Right Wing */}
-            <div className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-16 w-32 h-14 bg-gradient-to-l from-slate-400 to-slate-300 dark:from-slate-700 dark:to-slate-600 rounded-r-full border border-slate-500 dark:border-slate-600 shadow-lg">
-              <div className="absolute left-2 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            </div>
-
             {/* Main Fuselage */}
             <div className="bg-gradient-to-b from-white to-slate-100 dark:from-slate-700 dark:to-slate-800 rounded-2xl border-2 border-slate-300 dark:border-slate-600 shadow-inner p-6">
               
@@ -570,10 +562,10 @@ const SeatSelection = () => {
           </div>
 
           {/* Aircraft Tail */}
-          <div className="text-center mt-8">
-            <div className="relative mx-auto w-32 h-12">
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-t from-slate-400 to-slate-300 dark:from-slate-700 dark:to-slate-600 rounded-b-full border-2 border-slate-400 dark:border-slate-600"></div>
-              <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-t from-slate-400 to-slate-300 dark:from-slate-700 dark:to-slate-600 rounded border border-slate-400 dark:border-slate-600"></div>
+          <div className="text-center mt-6 sm:mt-8">
+            <div className="relative mx-auto w-24 sm:w-28 lg:w-32 h-10 sm:h-11 lg:h-12">
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-10 sm:w-11 lg:w-12 h-10 sm:h-11 lg:h-12 bg-gradient-to-t from-slate-400 to-slate-300 dark:from-slate-700 dark:to-slate-600 rounded-b-full border-2 border-slate-400 dark:border-slate-600"></div>
+              <div className="absolute -top-1 sm:-top-2 left-1/2 transform -translate-x-1/2 w-6 sm:w-7 lg:w-8 h-6 sm:h-7 lg:h-8 bg-gradient-to-t from-slate-400 to-slate-300 dark:from-slate-700 dark:to-slate-600 rounded border border-slate-400 dark:border-slate-600"></div>
             </div>
           </div>
         </div>
@@ -643,9 +635,9 @@ const SeatSelection = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="seat-selection-page max-w-7xl mx-auto px-3 sm:px-4 md:px-5 lg:px-6">
       {/* Flight Header */}
-      <div className="card p-4 sm:p-5 md:p-5 lg:p-5 mb-6 sm:mb-7 md:mb-6 lg:mb-7">
+      <div className="flight-header card p-3 sm:p-4 md:p-5 lg:p-5 mb-4 sm:mb-6 md:mb-6 lg:mb-7 mx-1 sm:mx-0">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center space-x-3 sm:space-x-4 md:space-x-3 lg:space-x-3 mb-4 lg:mb-0">
             <div className="bg-primary-100 dark:bg-primary-900/30 p-2.5 sm:p-3 md:p-2.5 lg:p-2.5 rounded-lg">
@@ -676,7 +668,7 @@ const SeatSelection = () => {
           </div>
           <div className="text-right bg-gray-50 dark:bg-gray-700/50 p-3 sm:p-4 md:p-3 lg:p-3 rounded-lg">
             <div className="text-xl sm:text-2xl md:text-xl lg:text-xl font-bold text-primary-600 dark:text-primary-400">
-              Total: ${getFinalTotal()}
+              Total: {formatPrice(getFinalTotal())}
             </div>
             <div className="text-sm text-secondary-600 dark:text-secondary-300">
               {selectedSeats.length} of {numSeatsRequired} seats selected
@@ -687,54 +679,56 @@ const SeatSelection = () => {
 
       {/* Flight Path Map & Sun Position Analysis */}
       {showFlightPath && flight && (
-        <div className="mb-6 sm:mb-7 md:mb-6 lg:mb-7">
-          <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-3 lg:mb-4">
-            <h2 className="text-lg sm:text-xl md:text-lg lg:text-xl font-semibold text-secondary-900 dark:text-white">
+        <div className="mb-4 sm:mb-6 md:mb-6 lg:mb-7 mx-1 sm:mx-0">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-3 sm:mb-4 md:mb-3 lg:mb-4 px-2 sm:px-0">
+            <h2 className="text-base sm:text-lg md:text-lg lg:text-xl font-semibold text-secondary-900 dark:text-white text-center sm:text-left">
               🗺️ Flight Path & Sun Position Analysis
             </h2>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
               <button
                 onClick={generateAIRecommendation}
-                className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 
                          hover:from-emerald-600 hover:to-teal-700 text-white rounded-lg transition-all 
-                         duration-300 hover:scale-105 hover:shadow-lg text-sm font-medium"
+                         duration-300 hover:scale-105 hover:shadow-lg text-xs sm:text-sm font-medium"
               >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                AI Recommendation
+                <span className="text-xs sm:text-sm">AI Recommendation</span>
               </button>
               <button
                 onClick={() => setShowFlightPath(false)}
-                className="text-sm text-secondary-600 dark:text-secondary-400 hover:text-secondary-900 dark:hover:text-white"
+                className="w-full sm:w-auto text-xs sm:text-sm text-secondary-600 dark:text-secondary-400 hover:text-secondary-900 dark:hover:text-white py-2 sm:py-0 px-3 sm:px-0 bg-gray-100 sm:bg-transparent dark:bg-gray-700 sm:dark:bg-transparent rounded-lg sm:rounded-none"
               >
                 Hide Map
               </button>
             </div>
           </div>
-          <FlightPathMap 
-            flight={flight} 
-            onSeatRecommendation={handleSeatRecommendation}
-          />
+          <div className="px-1 sm:px-0">
+            <FlightPathMap 
+              flight={flight} 
+              onSeatRecommendation={handleSeatRecommendation}
+            />
+          </div>
         </div>
       )}
 
       {/* Show Flight Path Toggle */}
       {!showFlightPath && (
-        <div className="mb-6 sm:mb-7 md:mb-6 lg:mb-7 text-center">
+        <div className="mb-4 sm:mb-6 md:mb-6 lg:mb-7 text-center px-2 sm:px-0">
           <button
             onClick={() => setShowFlightPath(true)}
-            className="btn-secondary"
+            className="btn-secondary w-full sm:w-auto px-4 sm:px-6 py-3 sm:py-2 text-sm sm:text-base"
           >
             🗺️ Show Flight Path & Sun Analysis
           </button>
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-5 lg:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5 lg:gap-6 px-1 sm:px-0">
         {/* Seat Map */}
-        <div className="lg:col-span-2">
-          <h2 className="text-base sm:text-lg md:text-base lg:text-lg font-semibold mb-3 sm:mb-4 md:mb-3 lg:mb-4 text-secondary-900 dark:text-white">Select Your Seats</h2>
+        <div className="lg:col-span-2 seat-map-container">
+          <h2 className="text-base sm:text-lg md:text-base lg:text-lg font-semibold mb-3 sm:mb-4 md:mb-3 lg:mb-4 text-secondary-900 dark:text-white px-2 sm:px-0">Select Your Seats</h2>
           {renderSeatMap()}
         </div>
 
@@ -927,7 +921,7 @@ const SeatSelection = () => {
                 <div className="bg-white dark:bg-gray-600 p-4 rounded-lg flex justify-between items-center">
                   <span className="text-secondary-600 dark:text-secondary-300 font-medium">Seat Selection Fee</span>
                   <span className="font-semibold text-secondary-900 dark:text-white text-lg">
-                    ${getTotalPrice() - (flight.pricing[searchCriteria.class || 'economy']?.price || 0) * numSeatsRequired}
+                    {formatPrice(getTotalPrice() - (flight.pricing[searchCriteria.class || 'economy']?.price || 0) * numSeatsRequired)}
                   </span>
                 </div>
               )}
@@ -941,7 +935,7 @@ const SeatSelection = () => {
                 <div className="flex justify-between items-center">
                   <span className="text-primary-700 dark:text-primary-300 font-bold text-lg">Total Amount</span>
                   <span className="text-primary-600 dark:text-primary-400 font-bold text-2xl">
-                    ${getFinalTotal()}
+                    {formatPrice(getFinalTotal())}
                   </span>
                 </div>
               </div>
@@ -970,7 +964,7 @@ const SeatSelection = () => {
             
             <button
               onClick={() => navigate(-1)}
-              className="btn-secondary w-full py-3 flex items-center justify-center space-x-2"
+              className="btn-secondary w-full py-3 flex items-center justify-center space-x-2 mb-8 sm:mb-10 md:mb-12 lg:mb-16"
             >
               <FiArrowLeft className="w-4 h-4" />
               <span>Back to Flight Details</span>
@@ -978,6 +972,9 @@ const SeatSelection = () => {
           </div>
         </div>
       </div>
+
+      {/* Additional spacing for mobile */}
+      <div className="pb-6 sm:pb-8 md:pb-10"></div>
 
       {/* Payment Modal */}
       {showPaymentModal && (
@@ -992,7 +989,7 @@ const SeatSelection = () => {
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-medium text-gray-700 dark:text-gray-300">Total Amount</span>
                   <span className="text-xl font-bold text-primary-600 dark:text-primary-400">
-                    ${getFinalTotal()}
+                    {formatPrice(getFinalTotal())}
                   </span>
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">
@@ -1033,9 +1030,9 @@ const SeatSelection = () => {
 
       {/* AI Seat Recommendation Modal */}
       {showAIRecommendationModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 pt-20 z-50 overflow-y-auto">
-          <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-2xl max-w-4xl w-full h-[75vh] max-h-[500px] flex flex-col">
-            <div className="p-4 sm:p-5 md:p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-emerald-500 to-teal-600 flex-shrink-0">
+        <div className="ai-modal-overlay">
+          <div className="ai-modal-content">
+            <div className="p-4 sm:p-5 md:p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-emerald-500 to-teal-600 flex-shrink-0 rounded-t-xl">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 sm:gap-3">
                   <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
@@ -1092,8 +1089,8 @@ const SeatSelection = () => {
                         Smart Analysis Complete
                       </h4>
                     </div>
-                    <div className="prose prose-sm sm:prose-base max-w-none text-gray-700 dark:text-gray-300 text-sm sm:text-base">
-                      <div className="whitespace-pre-line">{aiRecommendation}</div>
+                    <div className="prose prose-sm sm:prose-base max-w-none text-gray-700 dark:text-gray-300 text-sm sm:text-base ai-recommendation-text">
+                      {aiRecommendation}
                     </div>
                   </div>
                   
@@ -1125,7 +1122,7 @@ const SeatSelection = () => {
               )}
             </div>
             
-            <div className="p-4 sm:p-5 md:p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0">
+            <div className="p-4 sm:p-5 md:p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 flex-shrink-0 rounded-b-xl">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                 <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-center sm:text-left">
                   💡 Powered by advanced flight route analysis and travel optimization

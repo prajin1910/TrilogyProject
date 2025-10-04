@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { FiCalendar, FiCheck, FiDownload, FiHome, FiMail, FiMapPin, FiNavigation, FiUser } from 'react-icons/fi';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useCurrency } from '../context/CurrencyContext';
 
 const BookingConfirmation = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { formatPrice } = useCurrency();
   const [showConfetti, setShowConfetti] = useState(true);
 
   const { booking } = location.state || {};
@@ -258,7 +260,7 @@ const BookingConfirmation = () => {
                     <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">PNR</div>
                   </div>
                   <div className="bg-white dark:bg-gray-600 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-green-600 dark:text-green-400 mb-2">${booking.pricing.totalAmount}</div>
+                    <div className="text-2xl font-bold text-green-600 dark:text-green-400 mb-2">{formatPrice(booking.pricing.totalAmount)}</div>
                     <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Total Paid</div>
                   </div>
                   <div className="bg-white dark:bg-gray-600 p-4 rounded-lg">

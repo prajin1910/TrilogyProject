@@ -1,0 +1,24 @@
+{
+  "name": "flight-booking-system",
+  "version": "1.0.0",
+  "description": "Flight booking system with React frontend and Node.js backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "cd frontend && npm install && npm run build",
+    "install-deps": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev": "npm-run-all --parallel dev:backend dev:frontend",
+    "dev:backend": "cd backend && npm start",
+    "dev:frontend": "cd frontend && npm start"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

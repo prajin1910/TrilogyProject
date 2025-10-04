@@ -12,7 +12,7 @@ const initializeData = async () => {
     const adminExists = await User.findOne({ email: 'admin@flights.com' });
     if (!adminExists) {
       await User.create({
-        username: 'admin',
+        username: 'Admin',
         email: 'admin@flights.com',
         password: 'trilogy123',
         role: 'admin',

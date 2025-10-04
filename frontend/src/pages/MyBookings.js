@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FiClock, FiEye, FiMapPin, FiNavigation, FiRefreshCw, FiUser, FiX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { useCurrency } from '../context/CurrencyContext';
 import { bookingsAPI } from '../utils/api';
 
 const MyBookings = () => {
+  const { formatPrice } = useCurrency();
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState('all'); // all, upcoming, completed, cancelled
@@ -105,7 +107,7 @@ const MyBookings = () => {
       console.log('Cancel booking response:', response.data);
 
       if (response.data.success) {
-        toast.success(`Booking cancelled successfully! Refund of $${response.data.refundAmount} will be processed within 12 hours.`);
+        toast.success(`Booking cancelled successfully! Refund of ${formatPrice(response.data.refundAmount)} will be processed within 12 hours.`);
         
         // Update the booking in the local state
         setBookings(prev => prev.map(booking => 
@@ -428,7 +430,7 @@ const MyBookings = () => {
                         </div>
                         <div className="text-left sm:text-right">
                           <p className="font-bold text-xl sm:text-2xl text-primary-600 dark:text-primary-400">
-                            ${booking.pricing.totalAmount}
+                            {formatPrice(booking.pricing.totalAmount)}
                           </p>
                           <p className="text-xs sm:text-sm font-medium text-secondary-600 dark:text-secondary-400">Total Paid</p>
                         </div>
@@ -532,10 +534,10 @@ const MyBookings = () => {
                   {cancellingBooking.flight.route.departure.airport.code} → {cancellingBooking.flight.route.arrival.airport.code}
                 </p>
                 <p className="text-sm text-secondary-600 dark:text-secondary-400">
-                  Total Paid: <span className="font-semibold">${cancellingBooking.pricing.totalAmount}</span>
+                  Total Paid: <span className="font-semibold">{formatPrice(cancellingBooking.pricing.totalAmount)}</span>
                 </p>
                 <p className="text-sm text-success-600 dark:text-success-400">
-                  Refund Amount: <span className="font-semibold">${Math.round(cancellingBooking.pricing.totalAmount * 0.8)}</span>
+                  Refund Amount: <span className="font-semibold">{formatPrice(Math.round(cancellingBooking.pricing.totalAmount * 0.8))}</span>
                 </p>
               </div>
 

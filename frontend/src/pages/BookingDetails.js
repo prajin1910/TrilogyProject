@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FiCheck, FiDownload, FiMail, FiMapPin, FiNavigation, FiUser, FiX } from 'react-icons/fi';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useCurrency } from '../context/CurrencyContext';
 import { bookingsAPI } from '../utils/api';
 
 const BookingDetails = () => {
   const { bookingId } = useParams();
   const navigate = useNavigate();
+  const { formatPrice } = useCurrency();
   
   const [booking, setBooking] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,7 +47,7 @@ const BookingDetails = () => {
       });
       
       if (response.data.success) {
-        toast.success(`Booking cancelled successfully! Refund of $${response.data.refundAmount} will be processed within 12 hours.`);
+        toast.success(`Booking cancelled successfully! Refund of ${formatPrice(response.data.refundAmount)} will be processed within 12 hours.`);
         setShowCancelModal(false);
         fetchBookingDetails(); // Refresh booking details
       } else {
@@ -318,16 +320,16 @@ const BookingDetails = () => {
         <div className="space-y-4">
           <div className="flex justify-between">
             <span className="text-secondary-600 dark:text-secondary-400">Base Price:</span>
-            <span className="font-medium text-secondary-900 dark:text-white">${booking.pricing.basePrice}</span>
+            <span className="font-medium text-secondary-900 dark:text-white">{formatPrice(booking.pricing.basePrice)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-secondary-600 dark:text-secondary-400">Taxes & Fees:</span>
-            <span className="font-medium text-secondary-900 dark:text-white">${booking.pricing.taxes + booking.pricing.fees}</span>
+            <span className="font-medium text-secondary-900 dark:text-white">{formatPrice(booking.pricing.taxes + booking.pricing.fees)}</span>
           </div>
           <div className="border-t border-secondary-200 dark:border-secondary-700 pt-4">
             <div className="flex justify-between text-lg font-bold">
               <span className="text-secondary-900 dark:text-white">Total Paid:</span>
-              <span className="text-primary-600 dark:text-primary-400">${booking.pricing.totalAmount}</span>
+              <span className="text-primary-600 dark:text-primary-400">{formatPrice(booking.pricing.totalAmount)}</span>
             </div>
           </div>
           <div className="flex justify-between text-sm">

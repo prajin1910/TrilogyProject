@@ -2,11 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FiArrowRight, FiCalendar, FiCheckCircle, FiMapPin, FiNavigation, FiClock as FiScheduled, FiX } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useCurrency } from '../context/CurrencyContext';
 import api from '../utils/api';
 
 const FlightSearch = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { formatPrice } = useCurrency();
   const [flights, setFlights] = useState([]);
   const [filteredFlights, setFilteredFlights] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -593,7 +595,7 @@ const FlightSearch = () => {
                       <div className="flex items-center space-x-6">
                         <div>
                           <div className="text-2xl sm:text-3xl font-bold text-primary-600 dark:text-primary-400 font-display">
-                            ${flight.pricing.economy.price}
+                            {formatPrice(flight.pricing.economy.price)}
                           </div>
                           <div className="text-sm text-secondary-600 dark:text-secondary-300 font-body">Economy Class</div>
                         </div>

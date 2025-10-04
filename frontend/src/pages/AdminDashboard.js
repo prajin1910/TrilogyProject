@@ -18,10 +18,12 @@ import BookingDetailsModal from '../components/BookingDetailsModal';
 import EditFlightModal from '../components/EditFlightModal';
 import FlightDetailsModal from '../components/FlightDetailsModal';
 import { useAuth } from '../context/AuthContext';
+import { useCurrency } from '../context/CurrencyContext';
 import { adminAPI } from '../utils/api';
 
 const AdminDashboard = () => {
   const { user } = useAuth();
+  const { formatPrice } = useCurrency();
   const [stats, setStats] = useState(null);
   const [recentBookings, setRecentBookings] = useState([]);
   const [recentUsers, setRecentUsers] = useState([]);
@@ -209,13 +211,6 @@ const AdminDashboard = () => {
     }
   };
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
-  };
-
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -343,9 +338,9 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
       {/* Header */}
-      <div className="mb-6 sm:mb-7 md:mb-6 lg:mb-7">
+      <div className="mb-6 sm:mb-7 md:mb-6 lg:mb-7 mt-4 sm:mt-6">
         <h1 className="text-2xl sm:text-3xl md:text-2xl lg:text-3xl font-bold text-secondary-900 dark:text-white mb-2">Admin Dashboard</h1>
         <p className="text-secondary-600 dark:text-secondary-300">Manage your flight booking system</p>
       </div>
@@ -472,10 +467,10 @@ const AdminDashboard = () => {
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-secondary-500 dark:text-secondary-400">Total Revenue</p>
-                  <p className="text-2xl font-bold text-secondary-900 dark:text-white">{formatCurrency(stats?.revenue?.total || 0)}</p>
+                  <p className="text-2xl font-bold text-secondary-900 dark:text-white">{formatPrice(stats?.revenue?.total || 0)}</p>
                   <div className="flex items-center mt-1">
                     <FiTrendingUp className="w-4 h-4 text-green-500 mr-1" />
-                    <span className="text-sm text-green-500">{formatCurrency(stats?.revenue?.thisMonth || 0)} this month</span>
+                    <span className="text-sm text-green-500">{formatPrice(stats?.revenue?.thisMonth || 0)} this month</span>
                   </div>
                 </div>
               </div>
@@ -517,7 +512,7 @@ const AdminDashboard = () => {
                             </p>
                           </div>
                           <div className="text-right">
-                            <p className="font-medium text-secondary-900 dark:text-white">{formatCurrency(booking.pricing?.totalAmount || 0)}</p>
+                            <p className="font-medium text-secondary-900 dark:text-white">{formatPrice(booking.pricing?.totalAmount || 0)}</p>
                             <p className="text-sm text-secondary-500 dark:text-secondary-400">{formatDate(booking.createdAt)}</p>
                           </div>
                         </div>
@@ -716,7 +711,7 @@ const AdminDashboard = () => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <p className="text-sm font-medium text-secondary-900 dark:text-white">
-                              {formatCurrency(flight.pricing?.economy?.price || 0)}
+                              {formatPrice(flight.pricing?.economy?.price || 0)}
                             </p>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
@@ -922,7 +917,7 @@ const AdminDashboard = () => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <p className="font-medium text-secondary-900 dark:text-white">
-                              {formatCurrency(booking.pricing?.totalAmount || 0)}
+                              {formatPrice(booking.pricing?.totalAmount || 0)}
                             </p>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">

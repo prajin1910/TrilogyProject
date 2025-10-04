@@ -7,7 +7,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles with theme support */
+/* Base styles with theme support and enhanced performance */
 @layer base {
   * {
     margin: 0;
@@ -20,6 +20,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* Enhanced scroll performance */
+    scroll-behavior: smooth;
+    overscroll-behavior: smooth;
   }
   
   body {
@@ -27,6 +30,14 @@
     color: #111827;
     line-height: 1.6;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    /* Enhanced scrolling and performance */
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    /* Hardware acceleration for smooth scrolling */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
   
   body.dark {
@@ -480,7 +491,7 @@
   }
 }
 
-/* Enhanced animations */
+/* Enhanced animations and smooth scrolling utilities */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -523,6 +534,37 @@
   }
 }
 
+@keyframes smoothFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes smoothPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+@keyframes smoothSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-out;
 }
@@ -539,7 +581,52 @@
   animation: fadeInDown 0.3s ease-out;
 }
 
-/* Professional shadows */
+.animate-smooth-float {
+  animation: smoothFloat 3s ease-in-out infinite;
+}
+
+.animate-smooth-pulse {
+  animation: smoothPulse 2s ease-in-out infinite;
+}
+
+.animate-smooth-slide-up {
+  animation: smoothSlideUp 0.8s ease-out;
+}
+
+/* Smooth scroll behavior for all elements */
+* {
+  scroll-behavior: smooth !important;
+}
+
+/* Enhanced smooth scrolling utilities */
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+
+/* Hardware acceleration for better performance */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+/* Smooth transitions for all interactive elements */
+.smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.smooth-transition-fast {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.smooth-transition-slow {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Professional shadows with improved performance */
 .shadow-soft {
   box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
 }
@@ -554,6 +641,82 @@
 
 .shadow-extra-large {
   box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.15), 0 8px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Performance optimizations for entire app */
+.performance-optimized {
+  /* Enable hardware acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  /* Improve text rendering */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optimized animations with hardware acceleration */
+.optimized-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity, box-shadow;
+}
+
+.optimized-hover:hover {
+  transform: translateZ(0) scale(1.05) translateY(-2px);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Enhanced smooth scroll for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Force high z-index for dropdowns */
+[class*="absolute"][class*="top-full"] {
+  z-index: 9999;
 }
 
 /* Toast notifications with dark mode */
@@ -589,3 +752,217 @@
 }
 
 /* Basic seat styles without color changing recommendations */
+
+/* AI Recommendation Modal Enhancements */
+.ai-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+  overflow-y: auto;
+  padding-top: 80px; /* Space for navbar */
+  padding-bottom: 2rem;
+}
+
+/* Mobile spacing improvements */
+@media (max-width: 768px) {
+  /* Main container spacing */
+  .max-w-7xl {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  
+  /* Card spacing */
+  .card {
+    margin-left: 0.25rem !important;
+    margin-right: 0.25rem !important;
+    padding: 1rem !important;
+  }
+  
+  /* Grid spacing */
+  .grid {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  /* Seat map responsive improvements */
+  .seat {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 10px !important;
+  }
+  
+  /* Page content spacing */
+  .seat-selection-page > * {
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
+  }
+  
+  /* Prevent edge touching */
+  .seat-selection-page {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding-bottom: 3rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Even tighter spacing for small screens */
+  .max-w-7xl {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  .card {
+    margin-left: 0.125rem !important;
+    margin-right: 0.125rem !important;
+    padding: 0.75rem !important;
+  }
+  
+  .seat {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 9px !important;
+  }
+  
+  /* Page headings spacing */
+  h1, h2, h3 {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  /* Button spacing */
+  .btn-primary, .btn-secondary {
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Flight header mobile spacing */
+  .flight-header {
+    margin-left: 0.25rem !important;
+    margin-right: 0.25rem !important;
+  }
+  
+  /* Seat map container */
+  .seat-map-container {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+  
+  /* Prevent any content from touching edges */
+  .seat-selection-page {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+  
+  /* Grid layout adjustments */
+  .grid {
+    margin-left: 0.25rem !important;
+    margin-right: 0.25rem !important;
+  }
+}
+
+/* Profile page specific navbar fix */
+.profile-page-navbar {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+}
+
+/* Profile page responsive improvements */
+@media (max-width: 768px) {
+  .profile-page {
+    padding-top: 80px !important;
+  }
+  
+  .profile-page .lg\\:sticky {
+    position: relative !important;
+    top: auto !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .profile-page {
+    padding-top: 80px !important;
+  }
+}
+
+.ai-modal-content {
+  position: relative;
+  margin: 0 auto;
+  max-width: 56rem; /* max-w-4xl */
+  max-height: 85vh;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(0);
+  animation: slideInFromTop 0.3s ease-out;
+}
+
+@media (prefers-color-scheme: dark) {
+  .ai-modal-content {
+    background: #1f2937; /* gray-800 */
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* AI Recommendation text formatting */
+.ai-recommendation-text {
+  white-space: pre-line;
+  line-height: 1.6;
+}
+
+.ai-recommendation-text strong {
+  font-weight: 600;
+  color: inherit;
+}
+
+/* Mobile responsiveness: Extra space above hero title on small screens */
+@media (max-width: 640px) {
+  .hero-title-mobile {
+    margin-top: 2rem !important;
+  }
+  
+  .ai-modal-overlay {
+    padding-top: 70px; /* Smaller navbar on mobile */
+    padding-bottom: 1rem;
+  }
+  
+  .ai-modal-content {
+    max-height: 85vh;
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title-mobile {
+    margin-top: 3rem !important;
+  }
+  
+  .ai-modal-overlay {
+    padding-top: 65px; /* Even smaller navbar on very small screens */
+  }
+  
+  .ai-modal-content {
+    margin: 0 0.5rem;
+    max-height: 90vh;
+  }
+}

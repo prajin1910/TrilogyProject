@@ -4,6 +4,7 @@ import AdminRoute from './components/AdminRoute';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
+import { CurrencyProvider } from './context/CurrencyContext';
 import { ThemeProvider } from './context/ThemeContext';
 import AdminDashboard from './pages/AdminDashboard';
 import BookingConfirmation from './pages/BookingConfirmation';
@@ -20,11 +21,12 @@ import SeatSelection from './pages/SeatSelection';
 function App() {
   return (
     <ThemeProvider>
-      <AuthProvider>
-        <Router>
-          <div className="min-h-screen gradient-bg">
-            <Navbar />
-            <main>
+      <CurrencyProvider>
+        <AuthProvider>
+          <Router>
+            <div className="min-h-screen gradient-bg smooth-scroll gpu-accelerated">
+              <Navbar />
+              <main className="smooth-scroll">
               <Routes>
                 {/* Public routes */}
                 <Route path="/" element={<Home />} />
@@ -82,6 +84,7 @@ function App() {
                   boxShadow: '0 20px 60px -10px rgba(0, 0, 0, 0.15), 0 8px 25px -5px rgba(0, 0, 0, 0.1)',
                   backdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 },
                 success: {
                   style: {
@@ -114,7 +117,8 @@ function App() {
           </div>
         </Router>
       </AuthProvider>
-    </ThemeProvider>
+    </CurrencyProvider>
+  </ThemeProvider>
   );
 }
 
